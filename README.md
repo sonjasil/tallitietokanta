@@ -1,0 +1,2 @@
+# tallitietokanta
+Kurssin Tietokantasovellus harjoitustyö
