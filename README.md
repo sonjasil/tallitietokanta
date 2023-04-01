@@ -5,7 +5,7 @@ Sovellus on tarkoitettu ratsastuskoulujen käyttöön. Käyttäjät ovat joko op
 
 Ominaisuuksia:
 - Sovellukseen kirjaudutaan sisään
-- Ylläpitäjä lisätä tunteja, joilla on taso, hinta ja paikkojen määrä
+- Ylläpitäjä voi lisätä tunteja, joilla on taso, hinta ja paikkojen määrä
 - Opettaja voi lisätä asiakkaan tunnille ja jakaa tälle hevosen
 - Ylläpitäjä voi lisätä talliin hevosia ja hevosille tietoja (syntymäaika, ruokintamäärä, maksimituntien määrä päivässä)
 - Ylläpitäjä voi hakea hevosia tiettyjen kriteerien perusteella ja laskea esim. yhteisen ruokintamäärän
