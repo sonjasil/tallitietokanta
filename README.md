@@ -16,3 +16,19 @@ Ominaisuuksia:
 Toteutetut toiminnot:
 - Ylläpitäjän on mahdollista lisätä tunteja ja hevosia listoihin ja tarkastella listoja
 - Opettaja voi tarkastella tunti- ja hevoslistoja
+
+Sovellus ei ole saatavilla Fly.io:ssa. 
+
+Käynnistysohje paikallisesti:
+- Lataa repositorio koneellesi
+- Luo repositorion juurihakemistoon tiedosto .env ja aseta sen sisällöksi DATABASE_URL=<tietokannan-paikallinen-osoite>
+- Aktivoi virtuaaliympäristö komennoilla:
+  - python3 -m venv venv
+  - source venv/bin/activate
+- Asenna seuraavilla komennoilla riippuvuudet virtuaaliympäristössä:
+  - pip install flask
+  - pip install flask-sqlalchemy
+  - pip install psycopg2
+  - pip install python-dotenv
+- Määritä sovelluksen skeema komennolla psql < schema.sql
+- Sovelluksen saa käyntiin komennolla flask run
