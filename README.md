@@ -19,7 +19,7 @@ Toteutetut toiminnot:
 
 Sovellus ei ole saatavilla Fly.io:ssa. 
 
-Käynnistysohje paikallisesti:
+Käynnistysohje paikallisesti (Linux):
 - Sovellus vaati PostgreSQL:n asennuksen erikseen
 - Lataa repositorio koneellesi
 - Luo repositorion juurihakemistoon tiedosto .env ja aseta sen sisällöksi DATABASE_URL=postgresql+psycopg2:///tietokannan-paikallinen-osoite
