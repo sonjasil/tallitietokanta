@@ -14,13 +14,6 @@ CREATE TABLE lessons (
     lesson_time TIME
 );
 
-CREATE TABLE lesson_riders (
-    id SERIAL PRIMARY KEY,
-    lesson_id INTEGER REFERENCES lessons,
-    rider_id INTEGER REFERENCES riders,
-    horse_id INTEGER REFERENCES horses
-);
-
 CREATE TABLE horses (
     id SERIAL PRIMARY KEY,
     horse_name TEXT,
@@ -34,4 +27,11 @@ CREATE TABLE riders (
     id  SERIAL PRIMARY KEY,
     rider_name TEXT,
     user_id INTEGER REFERENCES users
+);
+
+CREATE TABLE lesson_riders (
+    id SERIAL PRIMARY KEY,
+    lesson_id INTEGER REFERENCES lessons,
+    rider_id INTEGER REFERENCES riders,
+    horse_id INTEGER REFERENCES horses
 );
