@@ -1,4 +1,4 @@
-# tallitietokanta
+# Tallitietokanta
 Kurssin Tietokantasovellus harjoitustyö
 
 Sovellus on tarkoitettu ratsastuskoulujen käyttöön. Käyttäjät ovat joko oppilaita, opettajia tai ylläpitäjiä. Sovelluksessa voidaan järjestää tuntien toimintaa ja tallentaa tietoa yksittäisistä hevosista.
@@ -12,3 +12,7 @@ Ominaisuuksia:
 - Asiakas voi lisätä itsensä tunnille ja näkee omat tuntinsa 
 - Asiakas voi hakea tilastoja omista tunneistaan
 - Talleja voi olla useita
+
+Toteutetut toiminnot:
+- Ylläpitäjän on mahdollista lisätä tunteja ja hevosia listoihin ja tarkastella listoja
+- Opettaja voi tarkastella tunti- ja hevoslistoja
