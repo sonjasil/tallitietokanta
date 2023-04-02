@@ -32,6 +32,6 @@ CREATE TABLE horses (
 
 CREATE TABLE riders (
     id  SERIAL PRIMARY KEY,
-    rider_name TEXT
+    rider_name TEXT,
     user_id INTEGER REFERENCES users
 );
