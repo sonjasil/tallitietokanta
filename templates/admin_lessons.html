@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<title>Tallitietokanta</title>
+<h1>Tunnin luonti</h1>
+<form action="/add_lesson" method="POST">
+Tunnin taso: <br>
+<input type="radio" name="level" value="PM"> Perusmerkki
+<input type="radio" name="level" value="HC"> Helppo C 
+<input type="radio" name="level" value="HB"> Helppo B 
+<input type="radio" name="level" value="HA"> Helppo A
+<br>
+Tunnin hinta (kokonaisluku): <input type="number" name="price" min="0" size="5">
+<br>
+Oppilaiden määrä:
+<select name="number">
+<option value="1"> 1
+<option value="2"> 2
+<option value="3"> 3
+<option value="4"> 4
+<option value="5"> 5
+<option value="6"> 6
+<option value="7"> 7
+<option value="8"> 8
+<option value="9"> 9
+</select>
+<br>
+<input type="submit" value="Lisää">
+</form>
+<br>
+<h1>Tuntilista</h1>
+<table>
+<tr><th>Taso</th><th>Hinta</th><th>Paikkoja</th></tr>
+{% for lesson in lesson_list %} 
+<tr><td>{{ lesson.skill_level }}</td><td>{{ lesson.price }}</td><td>{{ lesson.max_riders }}</td></tr>
+{% endfor %}
+</table>
+<br>
+<a href="/">Etusivu</a>

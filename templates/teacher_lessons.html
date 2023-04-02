@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<title>Tallitietokanta</title>
+<h1>Tunnit</h1>
+<table>
+<tr><th>Taso</th><th>Hinta</th><th>Paikkoja</th></tr>
+{% for lesson in lesson_list %} 
+<tr><td>{{ lesson.skill_level }}</td><td>{{ lesson.price }}</td><td>{{ lesson.max_riders }}</td></tr>
+{% endfor %}
+</table>
+<br>
+<h1>Hevoset</h1>
+<table>
+<tr><th>Nimi</th><th>Syntymävuosi</th><th>Maksimitunnit</th><th>Rehu</th><th>Rehumäärä</th></tr>
+{% for horse in horse_list %} 
+<tr><td>{{ horse.horse_name }}</td><td>{{ horse.birthyear }}</td><td>{{ horse.max_lessons }}</td><td>{{ horse.feed }}</td><td>{{ horse.feed_amount }}</td></tr>
+{% endfor %}
+</table>
+<br>
+<a href="/">Etusivu</a>
