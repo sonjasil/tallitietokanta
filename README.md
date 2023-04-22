@@ -21,15 +21,14 @@ Sovellus ei ole saatavilla Fly.io:ssa.
 
 Käynnistysohje paikallisesti (Linux):
 - Sovellus vaati PostgreSQL:n asennuksen erikseen
+- Tietokannan tulee olla käynnissä toisessa terminaalissa, jotta sovellus toimii. Jos PostgreSQL on asennettu kurssin ohjeen mukaan, tietokannan saa käyntiin komennolla:
+  - start-pg.sh
 - Lataa repositorio koneellesi
 - Luo repositorion juurihakemistoon tiedosto .env ja aseta sen sisällöksi DATABASE_URL=postgresql+psycopg2:///tietokannan-paikallinen-osoite
 - Aktivoi virtuaaliympäristö komennoilla:
   - python3 -m venv venv
   - source venv/bin/activate
-- Asenna seuraavilla komennoilla riippuvuudet virtuaaliympäristössä:
-  - pip install flask
-  - pip install flask-sqlalchemy
-  - pip install psycopg2
-  - pip install python-dotenv
+- Asenna seuraavalla komennolla riippuvuudet virtuaaliympäristössä:
+  - pip install -r requirements.txt
 - Määritä sovelluksen skeema komennolla psql < schema.sql
 - Sovelluksen saa käyntiin komennolla flask run
