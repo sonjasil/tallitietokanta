@@ -11,10 +11,10 @@ Ominaisuuksia:
 - Ylläpitäjä voi hakea hevosia tiettyjen kriteerien perusteella ja laskea esim. yhteisen ruokintamäärän
 - Asiakas voi lisätä itsensä tunnille ja näkee omat tuntinsa 
 - Asiakas voi hakea tilastoja omista tunneistaan
-- Talleja voi olla useita
 
 Toteutetut toiminnot:
 - Ylläpitäjän on mahdollista lisätä tunteja ja hevosia listoihin ja tarkastella listoja
+- Ylläpitäjä voi poistaa hevosia
 - Opettaja voi tarkastella tunti- ja hevoslistoja
 
 Sovellus ei ole saatavilla Fly.io:ssa. 
