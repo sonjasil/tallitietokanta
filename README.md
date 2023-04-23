@@ -24,7 +24,9 @@ Käynnistysohje paikallisesti (Linux):
 - Tietokannan tulee olla käynnissä toisessa terminaalissa, jotta sovellus toimii. Jos PostgreSQL on asennettu kurssin ohjeen mukaan, tietokannan saa käyntiin komennolla:
   - start-pg.sh
 - Lataa repositorio koneellesi
-- Luo repositorion juurihakemistoon tiedosto .env ja aseta sen sisällöksi DATABASE_URL=postgresql+psycopg2:///tietokannan-paikallinen-osoite
+- Luo repositorion juurihakemistoon tiedosto .env ja aseta sen sisällöksi
+    - DATABASE_URL=postgresql+psycopg2:///tietokannan-paikallinen-osoite
+    - SECRET_KEY=salainen-avain
 - Aktivoi virtuaaliympäristö komennoilla:
   - python3 -m venv venv
   - source venv/bin/activate
