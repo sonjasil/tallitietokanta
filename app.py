@@ -3,6 +3,7 @@ from flask import redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from os import getenv
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
@@ -18,7 +19,17 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
     session["username"] = username
-    return redirect("/")
+    sql = text("SELECT id, pword FROM users WHERE username=:username")
+    result = db.session.execute(sql, {"username":username})
+    user = result.fetchone()
+    if not user:
+        return render_template("error.html", message="Tunnusta ei ole olemassa")
+    else:
+        hash_value = user.pword
+        if check_password_hash(hash_value, password):
+            return redirect("/")
+        else:
+            return render_template("error.html", message="Väärä salasana")
 
 @app.route("/logout")
 def logout():
@@ -28,6 +39,31 @@ def logout():
 @app.route("/new_account")
 def new_account():
     return render_template("new_account.html")
+
+@app.route("/create_account", methods=["POST"])
+def create_account():
+    username = request.form["username"]
+    pword = request.form["password"]
+    pword2 = request.form["password2"]
+    hash_value = generate_password_hash(pword)
+    system_role = request.form["role"]
+    sql = text("INSERT INTO users (username, pword, system_role) VALUES (:username, :pword, :system_role)")
+    if 8 <= len(pword) <= 20:
+        if 1 <= len(username) <= 15:
+            if pword == pword2:
+                try:
+                    db.session.execute(sql, {"username":username, "pword":hash_value, "system_role":system_role})
+                    db.session.commit()
+                    return redirect("/")
+                except:
+                    return render_template("error.html", message="Tunnus on jo käytössä")
+            else:
+                return render_template("error.html", message="Salasanat eivät ole samat")
+        else:
+            return render_template("error.html", message="Käyttäjätunnus ei ole oikean pituinen")
+        
+    else:
+        return render_template("error.html", message="Salasana ei ole oikean pituinen")
 
 @app.route("/add_lesson", methods=["POST"])
 def add_lesson():
@@ -93,7 +129,7 @@ def teacher_lessons():
     sql1 = text("SELECT skill_level, price, max_riders FROM lessons")
     result1 = db.session.execute(sql1)
     lesson_list = result1.fetchall()
-    sql2 = text("SELECT horse_name, birthyear, max_lessons, feed, feed_amount from horses")
+    sql2 = text("SELECT horse_name, birthyear, max_lessons, feed, feed_amount from horses WHERE visible=TRUE")
     result2 = db.session.execute(sql2)
     horse_list = result2.fetchall()
     return render_template("teacher_lessons.html", lesson_list=lesson_list, horse_list=horse_list)
