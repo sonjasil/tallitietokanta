@@ -20,7 +20,8 @@ CREATE TABLE horses (
     birthyear INTEGER,
     max_lessons INTEGER,
     feed TEXT,
-    feed_amount INTEGER
+    feed_amount INTEGER,
+    visible BOOLEAN
 );
 
 CREATE TABLE riders (
