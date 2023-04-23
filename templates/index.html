@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <title>Tallitietokanta</title>
 <h1>Tallitietokanta</h1>
+{% if session.username %}
 <h2>Ylläpitäjän toiminnot:</h2>
 <ul>
     <li><a href="admin_lessons">Tuntien lisäys</a></li>
@@ -15,3 +16,16 @@
     <li><a href="student_add_lesson">Ilmoittaudu tunnille</a></li>
     <li><a href="student_own_lessons">Tarkastele omia tunteja</a></li>
 </ul>
+<br>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<form action="/login" method="POST">
+<p>Käyttäjätunnus:<br>
+<input type="text" name="username"></p>
+<p>Salasana:<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Kirjaudu sisään">
+</form>
+<br>
+<a href="/new_account">Luo tili</a>
+{% endif %}
