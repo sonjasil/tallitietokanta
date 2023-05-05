@@ -15,3 +15,8 @@ def get_users():
     sql = text("SELECT username, system_role from users")
     result = db.session.execute(sql)
     return result.fetchall()
+
+def get_riders():
+    sql = text("SELECT rider_name from riders")
+    result = db.session.execute(sql)
+    return result.fetchall()
