@@ -2,7 +2,7 @@ from sqlalchemy.sql import text
 from db import db
 
 def get_lessons():
-    sql = text("SELECT skill_level, price, max_riders FROM lessons")
+    sql = text("SELECT id, skill_level, price, max_riders, lesson_date, lesson_time FROM lessons ORDER BY lesson_date, lesson_time")
     result = db.session.execute(sql)
     return result.fetchall()
 

@@ -2,9 +2,9 @@
 <title>Tallitietokanta</title>
 <h1>Tunnit</h1>
 <table>
-<tr><th>Taso</th><th>Hinta</th><th>Paikkoja</th></tr>
+<tr><th>Tunnus</th><th>Taso</th><th>Hinta</th><th>Paikkoja</th><th>Päivä</th><th>Aika</th></tr>
 {% for lesson in lesson_list %} 
-<tr><td>{{ lesson.skill_level }}</td><td>{{ lesson.price }}</td><td>{{ lesson.max_riders }}</td></tr>
+<tr><td>{{ lesson.id }}</td><td>{{ lesson.skill_level }}</td><td>{{ lesson.price }}</td><td>{{ lesson.max_riders }}</td><td>{{ lesson.lesson_date }}</td><td>{{ lesson.lesson_time }}</td></tr>
 {% endfor %}
 </table>
 <br>
@@ -28,9 +28,10 @@
 <form action="/select_lesson" method="POST">
 <select name="individual_lesson">
 {% for lesson in lesson_list %}
-<option value="{{ lesson.skill_level }}"> {{ lesson.skill_level }}
+<option value="{{ lesson.id }}"> {{ lesson.id }}
 {% endfor %}
 </select>
 <input type="submit" value="Näytä">
 </form>
+<br>
 <a href="/">Etusivu</a>

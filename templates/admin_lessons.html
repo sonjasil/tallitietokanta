@@ -23,14 +23,18 @@ Oppilaiden määrä:
 <option value="9"> 9
 </select>
 <br>
+Tunnin päivämäärä: <input type="date" name="date" size="10">
+<br>
+Tunnin alkamisaika: <input type="time" name="time" size="5">
+<br>
 <input type="submit" value="Lisää">
 </form>
 <br>
 <h1>Tuntilista</h1>
 <table>
-<tr><th>Taso</th><th>Hinta</th><th>Paikkoja</th></tr>
+<tr><th>Tunnus</th><th>Taso</th><th>Hinta</th><th>Paikkoja</th><th>Päivä</th><th>Aika</th></tr>
 {% for lesson in lesson_list %} 
-<tr><td>{{ lesson.skill_level }}</td><td>{{ lesson.price }}</td><td>{{ lesson.max_riders }}</td></tr>
+<tr><td>{{ lesson.id }}</td><td>{{ lesson.skill_level }}</td><td>{{ lesson.price }}</td><td>{{ lesson.max_riders }}</td><td>{{ lesson.lesson_date }}</td><td>{{ lesson.lesson_time }}</td></tr>
 {% endfor %}
 </table>
 <br>

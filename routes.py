@@ -72,8 +72,10 @@ def add_lesson():
     level = request.form["level"]
     price = request.form["price"]
     number = request.form["number"]
-    sql = text("INSERT INTO lessons (skill_level, price, max_riders) VALUES (:level, :price, :number)")
-    db.session.execute(sql, {"level":level, "price":price, "number":number})
+    date = request.form["date"]
+    time = request.form["time"]
+    sql = text("INSERT INTO lessons (skill_level, price, max_riders, lesson_date, lesson_time) VALUES (:level, :price, :number, :date, :time)")
+    db.session.execute(sql, {"level":level, "price":price, "number":number, "date":date, "time":time})
     db.session.commit()
     return redirect("admin_lessons")
 
@@ -145,6 +147,7 @@ def teacher_lessons():
 def select_lesson():
     lesson_list = get_lessons()
     horse_list = get_horses()
+    rider_list = get_riders()
     lesson = request.form(["skill_level"])
     sql = text(f"SELECT R.rider_name, H.horse_name lesson_riders LR JOIN ")
 
