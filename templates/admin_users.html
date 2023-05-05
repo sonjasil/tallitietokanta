@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<h1>Hallitse käyttäjiä</h1>
+<table>
+    <tr><th>Käyttäjänimi</th><th>Rooli</th></tr>
+    {% for user in user_list %} 
+    <tr><td>{{ user.username }}</td><td>{{ user.system_role }}</td></tr>
+    {% endfor %}
+    </table>
+<br>
+Muuta käyttäjän roolia: <br>
+<form action="/change_role" method="POST">
+<select name="user">
+{% for user in user_list %}
+<option value="{{ user.username }}"> {{ user.username }}
+{% endfor %}
+</select>
+<input type="radio" name="role" value="Ylläpitäjä"> Ylläpitäjä
+<input type="radio" name="role" value="Opettaja"> Opettaja
+<br>
+<br>
+<input type="submit" value="Muuta roolia">
+</form>
+<br>
+<a href="/">Etusivu</a>
