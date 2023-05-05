@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import app
 from db import db
-from get_lists import get_lessons, get_horses, get_users
+from get_lists import get_lessons, get_horses, get_users, get_riders
 
 
 @app.route("/")
@@ -39,11 +39,17 @@ def new_account():
 @app.route("/create_account", methods=["POST"])
 def create_account():
     username = request.form["username"]
+    rider_name = request.form["name"]
     pword = request.form["password"]
     pword2 = request.form["password2"]
     hash_value = generate_password_hash(pword)
     system_role = request.form["role"]
+    user_id = session.get("user_id")
     sql = text("INSERT INTO users (username, pword, system_role) VALUES (:username, :pword, :system_role)")
+    sql2 = text("INSERT INTO riders (rider_name, user_id) VALUES (:rider_name, :user_id)")
+    if 1 <= len(rider_name) <= 15:
+        db.session.execute(sql2, {"rider_name":rider_name, "user_id":user_id})
+        db.session.commit()
     if 8 <= len(pword) <= 20:
         if 1 <= len(username) <= 15:
             if pword == pword2:
@@ -132,7 +138,8 @@ def change_role():
 def teacher_lessons():
     lesson_list = get_lessons()
     horse_list = get_horses()
-    return render_template("teacher_lessons.html", lesson_list=lesson_list, horse_list=horse_list)
+    rider_list = get_riders()
+    return render_template("teacher_lessons.html", lesson_list=lesson_list, horse_list=horse_list, rider_list=rider_list)
 
 @app.route("/select_lesson", methods=["POST"])
 def select_lesson():

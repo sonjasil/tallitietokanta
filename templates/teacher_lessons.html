@@ -16,6 +16,14 @@
 {% endfor %}
 </table>
 <br>
+<h1>Ratsastajat</h1>
+<table>
+<tr><th>Nimi</th></tr>
+{% for rider in rider_list %}
+<tr><td>{{ rider.rider_name }}</td></tr>
+{% endfor %}
+</table>
+<br>
 <h1>Tunnin ratsastajat</h1>
 <form action="/select_lesson" method="POST">
 <select name="individual_lesson">
