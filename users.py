@@ -19,24 +19,20 @@ def login(username, password):
 def logout():
     del session["user_id"]
 
-def create_account(username, name, user_id, pword, role):
+def create_account(username, pword, role):
     hash_value = generate_password_hash(pword)
     try:
         sql = text("INSERT INTO users (username, pword, system_role) VALUES (:username, :pword, :system_role)")
         db.session.execute(sql, {"username":username, "pword":hash_value, "system_role":role})
         db.session.commit()
-        create_rider(name, user_id)
         return True
     except:
         return False
 
 def create_rider(name, user_id):
-    try:
         sql = text("INSERT INTO riders (rider_name, user_id) VALUES (:rider_name, :user_id)")
         db.session.execute(sql, {"rider_name":name, "user_id":user_id})
         db.session.commit()
-    except:
-        return False
     
 def user_id():
     return session.get("user_id", 0)
