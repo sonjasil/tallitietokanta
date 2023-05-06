@@ -34,15 +34,13 @@ def create_account():
         return render_template("new_account.html")
     if request.method == "POST":
         username = request.form["username"]
-        rider_name = request.form["name"]
         pword = request.form["password"]
         pword2 = request.form["password2"]
         system_role = request.form["role"]
-        user_id = users.user_id()
-        if 1 <= len(rider_name) <= 15 and 8 <= len(pword) <= 20 and 1 <= len(username) <= 15:
+        if 8 <= len(pword) <= 20 and 1 <= len(username) <= 15:
             if pword != pword2:
                 return render_template("error.html", message="Salasanat eivät ole samat")
-            if users.create_account(username, rider_name, user_id, pword, system_role):
+            if users.create_account(username, pword, system_role):
                 return redirect("/")
             else:
                 return render_template("error.html", message="Rekisteröinti epäonnistui")
@@ -124,12 +122,21 @@ def teacher_lessons():
     lesson_list = get_lessons()
     horse_list = get_horses()
     rider_list = get_riders()
+    names = [rider.rider_name for rider in rider_list]
+    for user in get_users():
+        if user.username not in names and user.system_role == 'Ratsastaja':
+            users.create_rider(user.username, user.id)
+            return redirect("teacher_lessons")
     return render_template("teacher_lessons.html", lesson_list=lesson_list, horse_list=horse_list, rider_list=rider_list)
 
 @app.route("/select_lesson", methods=["POST"])
 def select_lesson():
     lesson = request.form["individual_lesson"]
     lesson_riders = get_lesson_riders(lesson)
+    lesson_list = get_lessons()
+    horse_list = get_horses()
+    rider_list = get_riders()
+    return render_template("teacher_lessons.html", lesson_list=lesson_list, horse_list=horse_list, rider_list=rider_list, lesson_riders=lesson_riders)
 
 @app.route("/add_rider", methods=["POST"])
 def add_rider():
@@ -142,7 +149,7 @@ def add_rider():
     sql2 = text(f"SELECT id FROM horses WHERE horse_name = '{horse}'")
     result2 = db.session.execute(sql2)
     horse_id = result2.fetchone()[0]
-    sql = text("INSERT INTO lesson_riders (lesson_id, rider_id, horse_id) VALUES (:lesson_id, :rider_id, horse_id)")
+    sql = text("INSERT INTO lesson_riders (lesson_id, rider_id, horse_id) VALUES (:lesson_id, :rider_id, :horse_id)")
     db.session.execute(sql, {"lesson_id":lesson_id, "rider_id":rider_id, "horse_id":horse_id})
     db.session.commit()
     return redirect("teacher_lessons")
