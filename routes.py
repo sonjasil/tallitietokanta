@@ -1,6 +1,5 @@
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request
 from sqlalchemy.sql import text
-from werkzeug.security import check_password_hash, generate_password_hash
 from app import app
 from db import db
 from get_lists import get_lessons, get_horses, get_users, get_riders, get_lesson_riders
@@ -8,7 +7,9 @@ import users
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    id = users.user_id()
+    role = users.system_role(id)
+    return render_template("index.html", role=role)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

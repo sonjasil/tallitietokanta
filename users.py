@@ -41,5 +41,7 @@ def create_rider(name, user_id):
 def user_id():
     return session.get("user_id", 0)
 
-def system_role():
-    return session.get("system_role")
+def system_role(id):
+    sql = text(f"SELECT system_role FROM users WHERE id = '{id}'")
+    result = db.session.execute(sql)
+    return result.fetchone()
