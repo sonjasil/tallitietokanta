@@ -28,10 +28,41 @@
 <form action="/select_lesson" method="POST">
 <select name="individual_lesson">
 {% for lesson in lesson_list %}
-<option value="{{ lesson.id }}"> {{ lesson.id }}
+<option value="{{ lesson.id }}">{{ lesson.id }}</option>
 {% endfor %}
 </select>
 <input type="submit" value="Näytä">
 </form>
+<br>
+<table>
+<tr><th>Nimi</th><th>Hevonen</th></tr>
+{% for rider in lesson_riders %} 
+<tr><td>{{ rider.rider_name }}</td><td>{{ rider.horse_name }}</td></tr>
+{% endfor %}
+</table>
+<br>
+<h1>Lisää ratsastaja tunnille</h1>
+<form action="/add_rider" method="POST">
+<select name="lesson">
+{% for lesson in lesson_list %}
+<option value="{{ lesson.id }}">{{ lesson.id }}</option>
+{% endfor%}
+</select> 
+<br>
+<select name="rider">
+{% for rider in rider_list %}
+<option value="{{ rider.rider_name }}">{{ rider.rider_name }}</option>
+{% endfor %} 
+</select> 
+<br>
+<select name="horse">
+{% for horse in horse_list %}
+<option value="{{ horse.horse_name }}">{{ horse.horse_name }}</option>
+{% endfor %}
+</select>
+<br>
+<input type="submit" value="Lisää">
+</form>
+<br>
 <br>
 <a href="/">Etusivu</a>
