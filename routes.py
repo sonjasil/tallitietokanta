@@ -3,69 +3,51 @@ from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import app
 from db import db
-from get_lists import get_lessons, get_horses, get_users, get_riders
-
+from get_lists import get_lessons, get_horses, get_users, get_riders, get_lesson_riders
+import users
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    username = request.form["username"]
-    pword = request.form["password"]
-    session["username"] = username
-    sql = text(f"SELECT id, pword FROM users WHERE username = '{username}'")
-    result = db.session.execute(sql)
-    user = result.fetchone()
-    if not user:
-        return render_template("error.html", message="Tunnusta ei ole olemassa")
-    else:
-        hash_value = user.pword
-        if check_password_hash(hash_value, pword):
+    if request.method == "GET":
+        return redirect("/login")
+    if request.method == "POST":
+        username = request.form["username"]
+        pword = request.form["password"]
+        if users.login(username, pword):
             return redirect("/")
         else:
-            return render_template("error.html", message="Väärä salasana")
+            return render_template("error.html", message="Kirjautuminen ei onnistunut")
 
 @app.route("/logout")
 def logout():
-    del session["username"]
+    users.logout()
     return redirect("/")
 
-@app.route("/new_account")
-def new_account():
-    return render_template("new_account.html")
-
-@app.route("/create_account", methods=["POST"])
+@app.route("/create_account", methods=["GET", "POST"])
 def create_account():
-    username = request.form["username"]
-    rider_name = request.form["name"]
-    pword = request.form["password"]
-    pword2 = request.form["password2"]
-    hash_value = generate_password_hash(pword)
-    system_role = request.form["role"]
-    user_id = session.get("user_id")
-    sql = text("INSERT INTO users (username, pword, system_role) VALUES (:username, :pword, :system_role)")
-    sql2 = text("INSERT INTO riders (rider_name, user_id) VALUES (:rider_name, :user_id)")
-    if 1 <= len(rider_name) <= 15:
-        db.session.execute(sql2, {"rider_name":rider_name, "user_id":user_id})
-        db.session.commit()
-    if 8 <= len(pword) <= 20:
-        if 1 <= len(username) <= 15:
-            if pword == pword2:
-                try:
-                    db.session.execute(sql, {"username":username, "pword":hash_value, "system_role":system_role})
-                    db.session.commit()
-                    return redirect("/")
-                except:
-                    return render_template("error.html", message="Tunnus on jo käytössä")
-            else:
+    if request.method == "GET":
+        return render_template("new_account.html")
+    if request.method == "POST":
+        username = request.form["username"]
+        rider_name = request.form["name"]
+        pword = request.form["password"]
+        pword2 = request.form["password2"]
+        system_role = request.form["role"]
+        user_id = users.user_id()
+        if 1 <= len(rider_name) <= 15 and 8 <= len(pword) <= 20 and 1 <= len(username) <= 15:
+            if pword != pword2:
                 return render_template("error.html", message="Salasanat eivät ole samat")
+            if users.create_account(username, rider_name, user_id, pword, system_role):
+                return redirect("/")
+            else:
+                return render_template("error.html", message="Rekisteröinti epäonnistui")
         else:
-            return render_template("error.html", message="Käyttäjätunnus ei ole oikean pituinen")
-        
-    else:
-        return render_template("error.html", message="Salasana ei ole oikean pituinen")
+            return render_template("error.html", message="Tarkista tekstin pituus")
+    
 
 @app.route("/add_lesson", methods=["POST"])
 def add_lesson():
@@ -145,11 +127,24 @@ def teacher_lessons():
 
 @app.route("/select_lesson", methods=["POST"])
 def select_lesson():
-    lesson_list = get_lessons()
-    horse_list = get_horses()
-    rider_list = get_riders()
-    lesson = request.form(["skill_level"])
-    sql = text(f"SELECT R.rider_name, H.horse_name lesson_riders LR JOIN ")
+    lesson = request.form["individual_lesson"]
+    lesson_riders = get_lesson_riders(lesson)
+
+@app.route("/add_rider", methods=["POST"])
+def add_rider():
+    lesson_id = request.form["lesson"]
+    rider = request.form["rider"]
+    sql1 = text(f"SELECT id FROM riders WHERE rider_name = '{rider}'")
+    result1 = db.session.execute(sql1)
+    rider_id = result1.fetchone()[0]
+    horse = request.form["horse"]
+    sql2 = text(f"SELECT id FROM horses WHERE horse_name = '{horse}'")
+    result2 = db.session.execute(sql2)
+    horse_id = result2.fetchone()[0]
+    sql = text("INSERT INTO lesson_riders (lesson_id, rider_id, horse_id) VALUES (:lesson_id, :rider_id, horse_id)")
+    db.session.execute(sql, {"lesson_id":lesson_id, "rider_id":rider_id, "horse_id":horse_id})
+    db.session.commit()
+    return redirect("teacher_lessons")
 
 @app.route("/student_add_lesson")
 def student_add_lesson():

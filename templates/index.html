@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <title>Tallitietokanta</title>
 <h1>Tallitietokanta</h1>
-{% if session.username %}
+{% if session.user_id %}
 <h2>Ylläpitäjän toiminnot:</h2>
 <ul>
     <li><a href="admin_lessons">Tuntien lisäys</a></li>
@@ -28,5 +28,5 @@
 <input type="submit" value="Kirjaudu sisään">
 </form>
 <br>
-<a href="/new_account">Luo tili</a>
+<a href="/create_account">Luo tili</a>
 {% endif %}
