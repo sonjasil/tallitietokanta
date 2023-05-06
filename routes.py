@@ -2,7 +2,7 @@ from flask import redirect, render_template, request
 from sqlalchemy.sql import text
 from app import app
 from db import db
-from get_lists import get_lessons, get_horses, get_users, get_riders, get_lesson_riders
+from get_lists import get_lessons, get_horses, get_users, get_riders, get_lesson_riders, get_own_lessons, get_lesson_count, get_horse_count
 import users
 
 @app.route("/")
@@ -160,4 +160,8 @@ def student_add_lesson():
 
 @app.route("/student_own_lessons")
 def student_own_lessons():
-    return render_template("student_own_lessons.html")
+    id = users.user_id()
+    lessons = get_own_lessons(id)
+    lesson_count = get_lesson_count(id)
+    horse_count = get_horse_count(id)
+    return render_template("student_own_lessons.html", lessons=lessons, lesson_count=lesson_count, horse_count=horse_count)

@@ -2,4 +2,16 @@
 <title>Tallitietokanta</title>
 <h1>Omat tunnit</h1>
 <br>
+<table>
+    <tr><th>Nimi</th><th>Hevonen</th><th>Päivä</th><th>Aika</th><th>Hinta</th></tr>
+    {% for lesson in lessons %} 
+    <tr><td>{{ lesson.rider_name }}</td><td>{{ lesson.horse_name }}</td><td>{{ lesson.lesson_date }}</td><td>{{ lesson.lesson_time }}</td><td>{{ lesson.price }}</td></tr>
+    {% endfor %}
+</table>
+<br>
+Tunteja yhteensä: {{ lesson_count[0] }}
+<br>
+Eri hevosia yhteensä: {{ horse_count[0] }}
+<br>
+<br>
 <a href="/">Etusivu</a>
