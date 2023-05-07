@@ -34,3 +34,4 @@ Käynnistysohje paikallisesti (Linux):
 - Sovellukseen luodaan valmiiksi ylläpitäjäkäyttäjä:
     - Käyttäjänimi: admin_user
     - Salasana: admin1234
+- Muut käyttäjät, jotka luodaan sovelluksessa ovat oletusarvoisesti ratsastajia. Ylläpitäjä voi tehdä tavallisesta käyttäjästä opettajan.
