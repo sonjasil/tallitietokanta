@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+<title>Luo uusi tili - Tallitietokanta</title>
+</head>
+<body>
 <h1>Luo uusi tili</h1>
 <form action="/create_account" method="POST">
 Käyttäjätunnus (1-15 merkkiä): <input type="text" name="username" size="20">
@@ -8,7 +13,8 @@ Salasana (8-20 merkkiä): <input type="password" name="password" size="20">
 Toista salasana: <input type="password" name="password2" size="20">
 <br>
 Valitse rooli: <br>
-<input type="radio" name="role" value="Ratsastaja"> Ratsastaja
+<input type="radio" name="role" value="Ratsastaja" checked> Ratsastaja
 <br>
 <input type="submit" value="Luo tili">
 </form>
+</body>

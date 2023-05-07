@@ -1,13 +1,20 @@
 <!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+<title>Käyttäjät - Tallitietokanta</title>
+</head>
+<body>
 <h1>Hallitse käyttäjiä</h1>
+<p>
 <table>
     <tr><th>Käyttäjänimi</th><th>Rooli</th></tr>
     {% for user in user_list %} 
     <tr><td>{{ user.username }}</td><td>{{ user.system_role }}</td></tr>
     {% endfor %}
     </table>
-<br>
-Muuta käyttäjän roolia: <br>
+</p>
+<p>
+Muuta käyttäjän roolia: 
 <form action="/change_role" method="POST">
 <select name="user">
 {% for user in user_list %}
@@ -23,3 +30,5 @@ Muuta käyttäjän roolia: <br>
 </form>
 <br>
 <a href="/">Etusivu</a>
+</p>
+</body>

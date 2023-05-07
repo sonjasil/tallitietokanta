@@ -1,21 +1,25 @@
 <!DOCTYPE html>
+<head>
 <title>Tallitietokanta</title>
-<h1>Tallitietokanta</h1>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+<header><h1>Tallitietokanta</h1></header>
 {% if session.user_id %}
 {% if role[0] == 'Ylläpitäjä' %}
-<h2>Ylläpitäjän toiminnot:</h2>
+<h2>Ylläpitäjän toiminnot</h2>
 <ul>
     <li><a href="admin_lessons">Tuntien lisäys</a></li>
     <li><a href="admin_horses">Hevosten lisäys</a></li>
     <li><a href="admin_users">Käyttäjien hallinta</a></li>
 </ul>
 {% elif role[0] == 'Opettaja' %}
-<h2>Opettajan toiminnot:</h2>
+<h2>Opettajan toiminnot</h2>
 <ul>
     <li><a href="teacher_lessons">Tuntien ja hevosten tarkastelu</a></li>
 </ul>
 {% elif role[0] == 'Ratsastaja' %}
-<h2>Oppilaan toiminnot:</h2>
+<h2>Oppilaan toiminnot</h2>
 <ul>
     <li><a href="student_add_lesson">Ilmoittaudu tunnille</a></li>
     <li><a href="student_own_lessons">Tarkastele omia tunteja</a></li>
@@ -34,3 +38,4 @@
 <br>
 <a href="/create_account">Luo tili</a>
 {% endif %}
+</body>

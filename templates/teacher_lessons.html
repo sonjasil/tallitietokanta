@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<title>Tallitietokanta</title>
+<head>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+<title>Hevoset ja tunnit - Tallitietokanta</title>
+</head>
+<body>
 <h1>Tunnit</h1>
 <table>
 <tr><th>Tunnus</th><th>Taso</th><th>Hinta</th><th>Paikkoja</th><th>Päivä</th><th>Aika</th></tr>
@@ -40,7 +44,7 @@
 <tr><td>{{ rider.rider_name }}</td><td>{{ rider.horse_name }}</td></tr>
 {% endfor %}
 </table>
-<br>
+<p>
 Muokkaa ratsastajan hevosta: <br>
 <form action="/change_horse" method="POST">
 <select name="lesson">
@@ -63,7 +67,7 @@ Muokkaa ratsastajan hevosta: <br>
 <br>
 <input type="submit" value="Muuta">
 </form>
-<br>
+</p>
 <h1>Lisää ratsastaja tunnille</h1>
 <form action="/add_rider" method="POST">
 <select name="lesson">
@@ -89,3 +93,4 @@ Muokkaa ratsastajan hevosta: <br>
 <br>
 <br>
 <a href="/">Etusivu</a>
+</body>

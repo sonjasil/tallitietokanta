@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<title>Tallitietokanta</title>
+<head>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+<title>Hevoset - Tallitietokanta</title>
+</head>
+<body>
 <h1>Hevosen lisäys</h1>
+<p>
 <form action="/add_horse" method="POST">
 Nimi: <input type="text" name="name" size="20">
 <br>
@@ -22,36 +27,42 @@ Rehumäärä päivässä (kg): <input type="number" name="amount" min="0" max="2
 <br>
 <input type="submit" value="Lisää">
 </form>
-<br>
+</p>
 <h1>Hevoset</h1>
+<p>
 <table>
 <tr><th>Nimi</th><th>Syntymävuosi</th><th>Maksimitunnit</th><th>Rehu</th><th>Rehumäärä</th></tr>
 {% for horse in horse_list %} 
 <tr><td>{{ horse.horse_name }}</td><td>{{ horse.birthyear }}</td><td>{{ horse.max_lessons }}</td><td>{{ horse.feed }}</td><td>{{ horse.feed_amount }}</td></tr>
 {% endfor %}
 </table>
-<br>
+</p>
+<p>
 <form action="/remove_horse" method="POST">
 Poista hevonen (nimi): <input type="text" name="name" size="20">
 <br>
 <input type="submit" value="Poista">
 </form>
-<br>
+</p>
 <h1>Hevoset rehun mukaan</h1>
+<p>
 <form action="/filter_feed" method="POST">
 Suodata hevosia rehun mukaan: 
 <input type="radio" name="feed" value="Säilöheinä"> Säilöheinä
 <input type="radio" name="feed" value="Kuivaheinä"> Kuivaheinä
 <input type="submit" value="Suodata">
 </form>
-<br>
+</p>
+<p>
 <table>
 <tr><th>Nimi</th><th>Rehu</th><th>Rehumäärä</th></tr>
 {% for horse in feed_list %} 
 <tr><td>{{ horse.horse_name }}</td><td>{{ horse.feed }}</td><td>{{ horse.feed_amount }}</td></tr>
 {% endfor %}
 </table>
-<br>
+</p>
+<p>
 Rehua yhteensä päivässä (kg): {{ feed_sum }}
-<br>
+</p>
 <a href="/">Etusivu</a>
+</body>
