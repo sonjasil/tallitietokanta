@@ -12,7 +12,7 @@ Tunnin taso: <br>
 <input type="radio" name="level" value="HB"> Helppo B 
 <input type="radio" name="level" value="HA"> Helppo A
 <br>
-Tunnin hinta (kokonaisluku): <input type="number" name="price" min="0" size="5">
+Tunnin hinta (kokonaisluku): <input type="number" name="price" min="0" max="500" size="5">
 <br>
 Oppilaiden määrä:
 <select name="number">
@@ -27,9 +27,9 @@ Oppilaiden määrä:
 <option value="9"> 9
 </select>
 <br>
-Tunnin päivämäärä: <input type="date" name="date" size="10">
+Tunnin päivämäärä: <input type="date" name="date" min="01-01-2023" max="12-12-2030" size="10">
 <br>
-Tunnin alkamisaika: <input type="time" name="time" size="5">
+Tunnin alkamisaika: <input type="time" name="time" min="01:00" max="00:00" size="5">
 <br>
 <input type="submit" value="Lisää">
 </form>

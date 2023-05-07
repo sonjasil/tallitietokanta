@@ -50,15 +50,18 @@ def create_account():
 
 @app.route("/add_lesson", methods=["POST"])
 def add_lesson():
-    level = request.form["level"]
-    price = request.form["price"]
-    number = request.form["number"]
-    date = request.form["date"]
-    time = request.form["time"]
-    sql = text("INSERT INTO lessons (skill_level, price, max_riders, lesson_date, lesson_time) VALUES (:level, :price, :number, :date, :time)")
-    db.session.execute(sql, {"level":level, "price":price, "number":number, "date":date, "time":time})
-    db.session.commit()
-    return redirect("admin_lessons")
+    try:
+        level = request.form["level"]
+        price = request.form["price"]
+        number = request.form["number"]
+        date = request.form["date"]
+        time = request.form["time"]
+        sql = text("INSERT INTO lessons (skill_level, price, max_riders, lesson_date, lesson_time) VALUES (:level, :price, :number, :date, :time)")
+        db.session.execute(sql, {"level":level, "price":price, "number":number, "date":date, "time":time})
+        db.session.commit()
+        return redirect("admin_lessons")
+    except:
+        return render_template("error.html", message="Täytä kaikki lomakkeen kohdat")
 
 @app.route("/admin_lessons")
 def admin_lessons():
@@ -67,16 +70,19 @@ def admin_lessons():
 
 @app.route("/add_horse", methods=["POST"])
 def add_horse():
-    name = request.form["name"]
-    year = request.form["year"]
-    lessons = request.form["lessons"]
-    feed = request.form["feed"]
-    amount = request.form["amount"]
-    visible = True
-    sql = text("INSERT INTO horses (horse_name, birthyear, max_lessons, feed, feed_amount, visible) VALUES (:name, :year, :lessons, :feed, :amount, :visible)")
-    db.session.execute(sql, {"name":name, "year":year, "lessons":lessons, "feed":feed, "amount":amount, "visible":visible})
-    db.session.commit()
-    return redirect("admin_horses")
+    try:
+        name = request.form["name"]
+        year = request.form["year"]
+        lessons = request.form["lessons"]
+        feed = request.form["feed"]
+        amount = request.form["amount"]
+        visible = True
+        sql = text("INSERT INTO horses (horse_name, birthyear, max_lessons, feed, feed_amount, visible) VALUES (:name, :year, :lessons, :feed, :amount, :visible)")
+        db.session.execute(sql, {"name":name, "year":year, "lessons":lessons, "feed":feed, "amount":amount, "visible":visible})
+        db.session.commit()
+        return redirect("admin_horses")
+    except:
+        return render_template("error.html", message="Täytä lomakkeen kaikki kohdat")
 
 @app.route("/admin_horses")
 def admin_horses():
