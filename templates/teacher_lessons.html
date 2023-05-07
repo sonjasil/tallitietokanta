@@ -41,6 +41,29 @@
 {% endfor %}
 </table>
 <br>
+Muokkaa ratsastajan hevosta: <br>
+<form action="/change_horse" method="POST">
+<select name="lesson">
+{% for lesson in lesson_list %}
+<option value="{{ lesson.id }}">{{ lesson.id }}</option>
+{% endfor%}
+</select> 
+<br>
+<select name="rider">
+{% for rider in rider_list %}
+<option value="{{ rider.rider_name }}">{{ rider.rider_name }}</option>
+{% endfor %} 
+</select> 
+<br>
+<select name="horse">
+{% for horse in horse_list %}
+ <option value="{{ horse.horse_name }}">{{ horse.horse_name }}</option>
+{% endfor %}
+</select>
+<br>
+<input type="submit" value="Muuta">
+</form>
+<br>
 <h1>Lisää ratsastaja tunnille</h1>
 <form action="/add_rider" method="POST">
 <select name="lesson">

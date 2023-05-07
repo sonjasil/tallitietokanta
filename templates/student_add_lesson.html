@@ -2,4 +2,31 @@
 <title>Tallitietokanta</title>
 <h1>Ilmoittaudu tunnille</h1>
 <br>
+<table>
+    <tr><th>Tunnus</th><th>Taso</th><th>Hinta</th><th>Paikkoja</th><th>Päivä</th><th>Aika</th></tr>
+    {% for lesson in lesson_list %} 
+    <tr><td>{{ lesson.id }}</td><td>{{ lesson.skill_level }}</td><td>{{ lesson.price }}</td><td>{{ lesson.max_riders }}</td><td>{{ lesson.lesson_date }}</td><td>{{ lesson.lesson_time }}</td></tr>
+    {% endfor %}
+</table>
+<br>
+Valitse tunti:
+<form action="/add_into_lesson" method="POST">
+<select name="lesson">
+{% for lesson in lesson_list %}
+<option value="{{ lesson.id }}">{{ lesson.id }}</option>
+{% endfor%}
+</select> 
+<br>
+<input type="submit" value="Ilmoittaudu">
+</form>
+<br>
+Omat tunnit:
+<br>
+<table>
+    <tr><th>Tunnus</th><th>Nimi</th><th>Hevonen</th><th>Päivä</th><th>Aika</th><th>Hinta</th></tr>
+    {% for lesson in own_lessons %} 
+    <tr><td>{{ lesson.id }}</td><td>{{ lesson.rider_name }}</td><td>{{ lesson.horse_name }}</td><td>{{ lesson.lesson_date }}</td><td>{{ lesson.lesson_time }}</td><td>{{ lesson.price }}</td></tr>
+    {% endfor %}
+</table>
+<br>
 <a href="/">Etusivu</a>

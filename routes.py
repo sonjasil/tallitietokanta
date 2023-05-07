@@ -149,19 +149,52 @@ def add_rider():
     sql2 = text(f"SELECT id FROM horses WHERE horse_name = '{horse}'")
     result2 = db.session.execute(sql2)
     horse_id = result2.fetchone()[0]
-    sql = text("INSERT INTO lesson_riders (lesson_id, rider_id, horse_id) VALUES (:lesson_id, :rider_id, :horse_id)")
+    sql = text(f"INSERT INTO lesson_riders (lesson_id, rider_id, horse_id) VALUES (:lesson_id, :rider_id, :horse_id)")
     db.session.execute(sql, {"lesson_id":lesson_id, "rider_id":rider_id, "horse_id":horse_id})
+    db.session.commit()
+    sql2 = text(f"UPDATE lessons SET max_riders = max_riders - 1 WHERE id = {lesson_id}")
+    db.session.execute(sql2)
     db.session.commit()
     return redirect("teacher_lessons")
 
+@app.route("/change_horse", methods=["POST"])
+def change_horse():
+    lesson_id = request.form["lesson"]
+    rider = request.form["rider"]
+    sql1 = text(f"SELECT id FROM riders WHERE rider_name = '{rider}'")
+    result1 = db.session.execute(sql1)
+    rider_id = result1.fetchone()[0]
+    horse = request.form["horse"]
+    sql2 = text(f"SELECT id FROM horses WHERE horse_name = '{horse}'")
+    result2 = db.session.execute(sql2)
+    horse_id = result2.fetchone()[0]
+    sql = text(f"UPDATE lesson_riders SET horse_id = {horse_id} WHERE lesson_id = {lesson_id} AND rider_id = {rider_id}")
+    db.session.execute(sql)
+    db.session.commit()
+    return redirect("teacher_lessons")
+
+
 @app.route("/student_add_lesson")
 def student_add_lesson():
-    return render_template("student_add_lesson.html")
+    user_id = users.user_id()
+    lesson_list = get_lessons()
+    own_lessons = get_own_lessons(user_id)
+    return render_template("student_add_lesson.html", lesson_list=lesson_list, own_lessons=own_lessons)
+
+@app.route("/add_into_lesson", methods=["POST"])
+def add_into_lesson():
+    lesson_id = request.form["lesson"]
+    user_id = users.user_id()
+    rider_id = users.get_rider_id(user_id)
+    sql = text("INSERT INTO lesson_riders (lesson_id, rider_id) VALUES (:lesson_id, :rider_id)")
+    db.session.execute(sql, {"lesson_id":lesson_id, "rider_id":rider_id})
+    db.session.commit()
+    return redirect("student_add_lesson")
 
 @app.route("/student_own_lessons")
 def student_own_lessons():
-    id = users.user_id()
-    lessons = get_own_lessons(id)
-    lesson_count = get_lesson_count(id)
-    horse_count = get_horse_count(id)
+    user_id = users.user_id()
+    lessons = get_own_lessons(user_id)
+    lesson_count = get_lesson_count(user_id)
+    horse_count = get_horse_count(user_id)
     return render_template("student_own_lessons.html", lessons=lessons, lesson_count=lesson_count, horse_count=horse_count)
