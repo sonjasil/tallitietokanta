@@ -30,9 +30,14 @@ def create_account(username, pword, role):
         return False
 
 def create_rider(name, user_id):
-        sql = text("INSERT INTO riders (rider_name, user_id) VALUES (:rider_name, :user_id)")
-        db.session.execute(sql, {"rider_name":name, "user_id":user_id})
-        db.session.commit()
+    sql = text("INSERT INTO riders (rider_name, user_id) VALUES (:rider_name, :user_id)")
+    db.session.execute(sql, {"rider_name":name, "user_id":user_id})
+    db.session.commit()
+
+def get_rider_id(user_id):
+    sql = text(f"SELECT id FROM riders WHERE user_id = {user_id}")
+    result = db.session.execute(sql)
+    return result.fetchone()[0]
     
 def user_id():
     return session.get("user_id", 0)
