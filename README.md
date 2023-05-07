@@ -4,18 +4,14 @@ Kurssin Tietokantasovellus harjoitustyö
 Sovellus on tarkoitettu ratsastuskoulujen käyttöön. Käyttäjät ovat joko oppilaita, opettajia tai ylläpitäjiä. Sovelluksessa voidaan järjestää tuntien toimintaa ja tallentaa tietoa yksittäisistä hevosista.
 
 Ominaisuuksia:
-- Sovellukseen kirjaudutaan sisään
-- Ylläpitäjä voi lisätä tunteja, joilla on taso, hinta ja paikkojen määrä
-- Opettaja voi lisätä asiakkaan tunnille ja jakaa tälle hevosen
-- Ylläpitäjä voi lisätä talliin hevosia ja hevosille tietoja (syntymäaika, ruokintamäärä, maksimituntien määrä päivässä)
-- Ylläpitäjä voi hakea hevosia tiettyjen kriteerien perusteella ja laskea esim. yhteisen ruokintamäärän
-- Asiakas voi lisätä itsensä tunnille ja näkee omat tuntinsa 
-- Asiakas voi hakea tilastoja omista tunneistaan
-
-Toteutetut toiminnot:
-- Ylläpitäjän on mahdollista lisätä tunteja ja hevosia listoihin ja tarkastella listoja
-- Ylläpitäjä voi poistaa hevosia
-- Opettaja voi tarkastella tunti- ja hevoslistoja
+- Sovellukseen kirjaudutaan sisään (tehty)
+- Ylläpitäjä voi lisätä tunteja, joilla on taso, hinta, paikkojen määrä ja ajankohta (tehty)
+- Opettaja voi lisätä asiakkaan tunnille ja jakaa tälle hevosen (tehty)
+- Ylläpitäjä voi lisätä talliin hevosia ja hevosille tietoja (syntymäaika, ruokintamäärä, maksimituntien määrä päivässä) (tehty)
+- Ylläpitäjä voi poistaa hevosia (tehty)
+- Ylläpitäjä voi suodattaa hevosia rehun mukaan ja laskea yhteisen rehumäärän (tehty)
+- Asiakas voi lisätä itsensä tunnille ja näkee omat tuntinsa (tehty)
+- Asiakas näkee tilastoja omista tunneistaan (tehty)
 
 Sovellus ei ole saatavilla Fly.io:ssa. 
 
@@ -34,3 +30,7 @@ Käynnistysohje paikallisesti (Linux):
   - pip install -r requirements.txt
 - Määritä sovelluksen skeema komennolla psql < schema.sql
 - Sovelluksen saa käyntiin komennolla flask run
+
+- Sovellukseen luodaan valmiiksi ylläpitäjäkäyttäjä:
+    - Käyttäjänimi: admin_user
+    - Salasana: admin1234
